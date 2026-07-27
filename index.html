@@ -3,42 +3,52 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Free Student Tools — Soft Skill Zone Institute</title>
+<title>Soft Skill Zone — Tools &amp; Resources</title>
 <style>
-  :root{--navy:#1F3864;--navy2:#2b4a7e;--orange:#C55A11;--grey:#5b6472;--light:#f2f6fc;--line:#e6ecf6;--green:#2e7d32;}
+  :root{--navy:#1F3864;--navy2:#2b4a7e;--orange:#C55A11;--orange2:#e06f1f;--grey:#5b6472;--light:#f2f6fc;--line:#e6ecf6;
+    --blue:#1565c0;--green:#2e7d32;--purple:#7030A0;--red:#c0202a;}
   *{box-sizing:border-box;margin:0;padding:0}
   body{font-family:'Segoe UI',system-ui,-apple-system,Roboto,Arial,sans-serif;background:linear-gradient(160deg,#eef2f9,#dfe7f4);color:#1c2430;min-height:100vh;padding:18px}
   .wrap{width:100%;max-width:900px;margin:0 auto}
+  /* Header */
   .hero{background:linear-gradient(135deg,var(--navy),var(--navy2));border-radius:24px;padding:34px 26px 30px;color:#fff;text-align:center;position:relative;overflow:hidden;box-shadow:0 18px 45px rgba(31,56,100,.25)}
   .hero::before{content:"";position:absolute;right:-60px;top:-60px;width:200px;height:200px;background:rgba(255,255,255,.05);border-radius:50%}
   .hero::after{content:"";position:absolute;left:-50px;bottom:-70px;width:180px;height:180px;background:rgba(197,90,17,.12);border-radius:50%}
-  .hero h1{font-size:29px;letter-spacing:.3px;position:relative}
+  .hero h1{font-size:30px;letter-spacing:.3px;position:relative}
   .hero .line{width:70px;height:4px;background:var(--orange);border-radius:4px;margin:12px auto;position:relative}
   .hero .sub{font-size:14px;opacity:.9;position:relative;letter-spacing:.4px}
   .hero .badge{display:inline-block;margin-top:16px;background:var(--orange);color:#fff;font-weight:700;font-size:13px;padding:8px 20px;border-radius:30px;position:relative;box-shadow:0 6px 16px rgba(197,90,17,.35)}
-  .welcome{background:#fff;border-radius:16px;padding:16px 20px;margin-top:18px;box-shadow:0 10px 28px rgba(31,56,100,.1);font-size:14px;color:#2a3444;line-height:1.6;text-align:center}
-  .welcome b{color:var(--navy)}
-  .stitle{display:flex;align-items:center;gap:10px;margin:26px 4px 14px;font-size:15px;font-weight:800;color:var(--navy);letter-spacing:.4px;text-transform:uppercase}
+  /* Section title */
+  .stitle{display:flex;align-items:center;gap:10px;margin:28px 4px 14px;font-size:15px;font-weight:800;color:var(--navy);letter-spacing:.4px;text-transform:uppercase}
   .stitle::after{content:"";flex:1;height:2px;background:var(--line)}
+  /* Grid */
   .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(255px,1fr));gap:16px}
-  .tool{background:#fff;border-radius:18px;padding:22px;box-shadow:0 10px 30px rgba(31,56,100,.1);border:1px solid var(--line);display:flex;flex-direction:column;transition:.2s;position:relative;overflow:hidden}
+  .tool{background:#fff;border-radius:18px;padding:20px;box-shadow:0 10px 30px rgba(31,56,100,.1);border:1px solid var(--line);display:flex;flex-direction:column;transition:.2s;position:relative;overflow:hidden}
   .tool:hover{transform:translateY(-4px);box-shadow:0 18px 40px rgba(31,56,100,.18)}
-  .tool .ico{width:54px;height:54px;border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:27px;margin-bottom:14px;color:#fff}
+  .tool .ico{width:52px;height:52px;border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:26px;margin-bottom:14px;color:#fff}
   .tool h3{font-size:18px;color:var(--navy);margin-bottom:6px}
   .tool p{font-size:13px;color:var(--grey);line-height:1.55;flex:1;margin-bottom:16px}
-  .tool .btn{display:inline-flex;align-items:center;justify-content:center;gap:7px;background:var(--navy);color:#fff;text-decoration:none;font-weight:700;font-size:14px;padding:12px 16px;border-radius:11px;transition:.15s}
+  .tool .btn{display:inline-flex;align-items:center;justify-content:center;gap:7px;background:var(--navy);color:#fff;text-decoration:none;font-weight:700;font-size:14px;padding:11px 16px;border-radius:11px;transition:.15s}
   .tool .btn:hover{background:var(--orange)}
-  .tag{position:absolute;top:14px;right:14px;font-size:10.5px;font-weight:800;padding:4px 10px;border-radius:20px;background:#e7f5e9;color:var(--green)}
-  .course{margin-top:26px;background:linear-gradient(135deg,#22345c,#33507f);border-radius:20px;padding:24px;color:#fff;display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:16px;box-shadow:0 14px 36px rgba(31,56,100,.22)}
-  .course .ct h2{font-size:20px;margin-bottom:6px}.course .ct p{font-size:13px;opacity:.88;line-height:1.5}
+  .tool .btn.soon{background:#eef1f7;color:#9aa4b4;cursor:default;pointer-events:none}
+  .tag{position:absolute;top:14px;right:14px;font-size:10.5px;font-weight:800;padding:4px 10px;border-radius:20px;letter-spacing:.5px}
+  .tag.live{background:#e7f5e9;color:var(--green)}
+  .tag.soon{background:#fdf0e6;color:var(--orange)}
+  /* Course strip */
+  .course{margin-top:26px;background:linear-gradient(135deg,#22345c,#33507f);border-radius:20px;padding:24px 24px;color:#fff;display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:16px;box-shadow:0 14px 36px rgba(31,56,100,.22)}
+  .course .ct h2{font-size:20px;margin-bottom:6px}
+  .course .ct p{font-size:13px;opacity:.88;line-height:1.5}
   .course .tags{margin-top:10px;display:flex;gap:6px;flex-wrap:wrap}
   .course .tags span{background:rgba(255,255,255,.12);font-size:11px;font-weight:700;padding:5px 11px;border-radius:20px}
   .wa{display:inline-flex;align-items:center;gap:9px;background:#25D366;color:#fff !important;text-decoration:none;font-weight:800;padding:14px 22px;border-radius:13px;font-size:15px;box-shadow:0 8px 20px rgba(37,211,102,.35);white-space:nowrap}
+  /* Footer */
   .foot{margin-top:22px;background:var(--navy);border-radius:18px;padding:20px 22px;color:#fff;text-align:center}
-  .foot .fn{font-weight:800;font-size:17px}.foot .fr{font-size:13.5px;opacity:.92;margin-top:6px}
-  .foot .fr a{color:#fff;text-decoration:none}.foot .dots{margin:10px 0}
+  .foot .fn{font-weight:800;font-size:17px}
+  .foot .fr{font-size:13.5px;opacity:.92;margin-top:6px}
+  .foot .fr a{color:#fff;text-decoration:none}
+  .foot .dots{margin:10px 0}
   .credit{text-align:center;font-size:11.5px;color:var(--grey);margin:14px 0 4px}
-  @media(max-width:560px){.hero h1{font-size:23px}.course{flex-direction:column;text-align:center;align-items:stretch}.course .wa{justify-content:center}}
+  @media(max-width:560px){.hero h1{font-size:24px}.course{flex-direction:column;text-align:center;align-items:stretch}.course .wa{justify-content:center}}
 </style>
 </head>
 <body>
@@ -47,50 +57,86 @@
   <div class="hero">
     <h1>Soft Skill Zone Institute</h1>
     <div class="line"></div>
-    <div class="sub">Free Student Tools &nbsp;•&nbsp; GST + TallyPrime Practice</div>
-    <div class="badge">🎁 Sabhi Students ke liye — Bilkul Free</div>
+    <div class="sub">Tools &amp; Resources Hub &nbsp;•&nbsp; GST + TallyPrime</div>
+    <div class="badge">Free Online Tools for Students</div>
   </div>
 
-  <div class="welcome">
-    👋 <b>Welcome students!</b> Yeh free tools aapki GST + Tally practice ke liye hain. Calculate karo, HSN/rate dhoondho, aur quiz se apna knowledge test karo. <b>Apne doston ke saath bhi share karo!</b>
-  </div>
-
-  <div class="stitle">🛠️ Practice Tools</div>
+  <div class="stitle">🛠️ Ready Tools</div>
   <div class="grid">
 
     <div class="tool">
-      <span class="tag">● FREE</span>
+      <span class="tag live">● LIVE</span>
       <div class="ico" style="background:linear-gradient(135deg,#1565c0,#2e8bd6)">🧮</div>
       <h3>GST Calculator</h3>
-      <p>Amount daalo → CGST / SGST / IGST turant. Reverse GST bhi (total mein se GST alag). GST 2.0 rates (0/5/18/40).</p>
+      <p>Taxable amount daalo → CGST / SGST / IGST turant nikale. Reverse GST bhi (total mein se GST alag karo). GST 2.0 rates (0/5/18/40).</p>
       <a class="btn" href="gst_calculator.html">Open Tool →</a>
     </div>
 
     <div class="tool">
-      <span class="tag">● FREE</span>
+      <span class="tag live">● LIVE</span>
       <div class="ico" style="background:linear-gradient(135deg,#C55A11,#e06f1f)">🔍</div>
       <h3>HSN / Rate Finder</h3>
-      <p>Item ya HSN se search karo ("TV", "8528", "namkeen") → HSN/SAC aur GST rate turant. ~97 common items.</p>
+      <p>Item ya HSN code se search karo (jaise "TV", "8528", "namkeen") → HSN/SAC aur GST rate turant. ~97 common items, category filters.</p>
       <a class="btn" href="hsn_rate_finder.html">Open Tool →</a>
     </div>
 
     <div class="tool">
-      <span class="tag">● FREE</span>
+      <span class="tag live">● LIVE</span>
       <div class="ico" style="background:linear-gradient(135deg,#7030A0,#9a4fd0)">📝</div>
       <h3>GST + Tally Quiz</h3>
-      <p>Self-grading MCQ test — apna knowledge test karo. Instant feedback, score, aur har baar naye random questions.</p>
+      <p>Self-grading MCQ test — course revision aur practice ke liye. Timer, score, instant feedback aur har baar naye random questions.</p>
       <a class="btn" href="gst_tally_quiz.html">Open Tool →</a>
+    </div>
+
+    <div class="tool">
+      <span class="tag live">● LIVE</span>
+      <div class="ico" style="background:linear-gradient(135deg,#2e7d32,#4caf50)">🎓</div>
+      <h3>Certificate Generator</h3>
+      <p>Student ka naam, course aur date daalo → branded "Course Completion Certificate" turant ready. Print / PDF / PNG download.</p>
+      <a class="btn" href="certificate_generator.html">Open Tool →</a>
+    </div>
+
+    <div class="tool">
+      <span class="tag live">● LIVE</span>
+      <div class="ico" style="background:linear-gradient(135deg,#1f3864,#3a5a9a)">⌨️</div>
+      <h3>Tally Shortcut Keys</h3>
+      <p>Searchable cheat-sheet — saare TallyPrime shortcuts (F8, F9, Alt+G, Ctrl+F8...) category-wise. Tally seekhne mein daily kaam.</p>
+      <a class="btn" href="tally_shortcuts.html">Open Tool →</a>
+    </div>
+
+    <div class="tool">
+      <span class="tag live">● LIVE</span>
+      <div class="ico" style="background:linear-gradient(135deg,#0f9d58,#34b371)">🧾</div>
+      <h3>GST Invoice Generator</h3>
+      <p>Details bharo → proper GST Tax Invoice (CGST/SGST/IGST auto), print/PDF ready. Invoice format bhi seekho.</p>
+      <a class="btn" href="gst_invoice_generator.html">Open Tool →</a>
+    </div>
+
+    <div class="tool">
+      <span class="tag live">● LIVE</span>
+      <div class="ico" style="background:linear-gradient(135deg,#7030A0,#9a4fd0)">📖</div>
+      <h3>Accounting Glossary</h3>
+      <p>Searchable dictionary — Debit, Credit, Ledger, ITC, Voucher... sab terms simple Hinglish mein. Beginners ke liye perfect.</p>
+      <a class="btn" href="accounting_glossary.html">Open Tool →</a>
+    </div>
+
+    <div class="tool">
+      <span class="tag live">● LIVE</span>
+      <div class="ico" style="background:linear-gradient(135deg,#C55A11,#e06f1f)">💼</div>
+      <h3>Interview Q&amp;A Flashcards</h3>
+      <p>Common GST + Tally interview questions flip-card style, answers ke saath. Job/placement ki taiyari ke liye.</p>
+      <a class="btn" href="interview_flashcards.html">Open Tool →</a>
     </div>
 
   </div>
 
   <div class="course">
     <div class="ct">
-      <h2>Poora Course Seekhna Hai?</h2>
-      <p>Job-Oriented GST + TallyPrime Master Course · 100% Practical · Ghar baithe ya class mein · Certificate + Job-ready skills.</p>
-      <div class="tags"><span>GST 2.0</span><span>TallyPrime 7.0</span><span>Real Practice</span><span>Certificate</span></div>
+      <h2>Job-Oriented GST + TallyPrime Master Course</h2>
+      <p>100% Practical Training · 2026 Updated · Job-ready skills. Ghar baithe ya class mein — seekho aur accountant bano.</p>
+      <div class="tags"><span>GST 2.0</span><span>TallyPrime 7.0</span><span>Real Company Data</span><span>Certificate</span></div>
     </div>
-    <a class="wa" href="https://wa.me/916202856897?text=Hi%2C%20GST%20%2B%20Tally%20course%20join%20karna%20hai" target="_blank" rel="noopener">💬 Admission Enquiry</a>
+    <a class="wa" href="https://wa.me/916202856897?text=Hi%2C%20GST%20%2B%20Tally%20course%20ki%20jaankari%20chahiye" target="_blank" rel="noopener">💬 Enquiry — WhatsApp</a>
   </div>
 
   <div class="foot">
@@ -101,7 +147,7 @@
     <div class="fr">🎓 GST + TallyPrime · Accounting · Practical Training</div>
   </div>
 
-  <div class="credit">© Soft Skill Zone Institute • Author: Pankaj Pandey • Free Student Tools</div>
+  <div class="credit">© Soft Skill Zone Institute • Author: Pankaj Pandey • Tools Hub</div>
 </div>
 </body>
 </html>

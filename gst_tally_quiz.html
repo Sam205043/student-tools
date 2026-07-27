@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GST + Tally Quiz — Soft Skill Zone Institute</title>
+<style>
+  :root{--navy:#1F3864;--navy2:#2b4a7e;--orange:#C55A11;--grey:#5b6472;--light:#f2f6fc;--line:#e6ecf6;
+    --green:#2e7d32;--greenbg:#e7f5e9;--red:#c0202a;--redbg:#fbe7e8;}
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:'Segoe UI',system-ui,-apple-system,Roboto,Arial,sans-serif;background:linear-gradient(160deg,#eef2f9,#dfe7f4);color:#1c2430;min-height:100vh;padding:16px;display:flex;justify-content:center}
+  .wrap{width:100%;max-width:520px}
+  .head{background:linear-gradient(135deg,var(--navy),var(--navy2));border-radius:20px 20px 0 0;padding:22px;color:#fff;text-align:center;position:relative;overflow:hidden}
+  .head::after{content:"";position:absolute;right:-40px;top:-40px;width:130px;height:130px;background:rgba(255,255,255,.06);border-radius:50%}
+  .head h1{font-size:22px}.head .tag{font-size:12.5px;opacity:.85;margin-top:4px;letter-spacing:.5px}
+  .card{background:#fff;border-radius:0 0 20px 20px;padding:22px 20px;box-shadow:0 18px 45px rgba(31,56,100,.18);min-height:340px}
+  /* Start */
+  .start{text-align:center;padding:10px 4px}
+  .start .big{font-size:40px;margin-bottom:6px}
+  .start h2{color:var(--navy);font-size:20px;margin-bottom:10px}
+  .start p{color:var(--grey);font-size:14px;line-height:1.6;margin-bottom:8px}
+  .start ul{list-style:none;text-align:left;max-width:320px;margin:14px auto 0;font-size:13.5px;color:#2a3444}
+  .start ul li{padding:7px 0 7px 28px;position:relative}
+  .start ul li::before{content:"✔";position:absolute;left:0;color:var(--green);font-weight:800}
+  .btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;background:var(--orange);color:#fff;border:0;font-weight:800;font-size:16px;padding:14px 30px;border-radius:13px;cursor:pointer;transition:.15s;margin-top:20px;box-shadow:0 8px 20px rgba(197,90,17,.3)}
+  .btn:hover{filter:brightness(1.06)}
+  .btn.nav{background:var(--navy);margin-top:16px;width:100%}
+  /* Quiz top */
+  .qtop{display:flex;justify-content:space-between;align-items:center;font-size:12.5px;font-weight:700;color:var(--grey);margin-bottom:8px}
+  .qtop .sc{color:var(--orange)}
+  .bar{height:8px;background:var(--light);border-radius:6px;overflow:hidden;margin-bottom:18px}
+  .bar span{display:block;height:100%;background:linear-gradient(90deg,var(--orange),#e8853f);width:0;transition:width .3s}
+  .qtext{font-size:17px;font-weight:700;color:#1c2430;line-height:1.45;margin-bottom:16px}
+  .opts{display:flex;flex-direction:column;gap:10px}
+  .opt{text-align:left;border:2px solid var(--line);background:#fff;padding:13px 15px;border-radius:12px;font-size:14.5px;font-weight:600;color:#2a3444;cursor:pointer;transition:.15s;display:flex;align-items:center;gap:10px}
+  .opt .k{width:24px;height:24px;flex:none;border-radius:50%;background:var(--light);color:var(--navy);font-weight:800;font-size:13px;display:flex;align-items:center;justify-content:center}
+  .opt:hover{border-color:var(--orange)}
+  .opt.correct{border-color:var(--green);background:var(--greenbg)}
+  .opt.correct .k{background:var(--green);color:#fff}
+  .opt.wrong{border-color:var(--red);background:var(--redbg)}
+  .opt.wrong .k{background:var(--red);color:#fff}
+  .opt.dim{opacity:.6}
+  .opt[disabled]{cursor:default}
+  .expl{margin-top:14px;background:var(--light);border-left:4px solid var(--navy);border-radius:8px;padding:11px 14px;font-size:13px;color:#2a3444;line-height:1.5;display:none}
+  .expl.show{display:block}
+  .expl b{color:var(--navy)}
+  /* Result */
+  .res{text-align:center;padding:6px 4px}
+  .ring{width:150px;height:150px;border-radius:50%;margin:8px auto 14px;display:flex;flex-direction:column;align-items:center;justify-content:center;color:#fff}
+  .ring .p{font-size:40px;font-weight:800;line-height:1}
+  .ring .s{font-size:13px;opacity:.9;margin-top:2px}
+  .res h2{color:var(--navy);font-size:22px;margin-bottom:6px}
+  .res .msg{font-size:14px;color:var(--grey);line-height:1.6;margin-bottom:4px}
+  .res .stat{display:flex;justify-content:center;gap:20px;margin:14px 0}
+  .res .stat div{font-size:13px;color:var(--grey)}
+  .res .stat b{display:block;font-size:22px;color:var(--navy)}
+  /* Footer */
+  .foot{margin-top:16px;background:var(--navy);border-radius:16px;padding:15px 18px;color:#fff;text-align:center}
+  .foot .fn{font-weight:800;font-size:15px}.foot .fr{font-size:12.5px;opacity:.92;margin-top:5px}
+  .foot a{color:#fff;text-decoration:none}
+  .wa{display:inline-flex;align-items:center;gap:8px;background:#25D366;color:#fff !important;font-weight:800;padding:10px 18px;border-radius:11px;font-size:13.5px;margin-top:11px}
+  .credit{text-align:center;font-size:11px;color:var(--grey);margin-top:12px}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="head">
+    <h1>GST + Tally Quiz</h1>
+    <div class="tag">Soft Skill Zone Institute &nbsp;•&nbsp; Practice Test</div>
+  </div>
+
+  <div class="card" id="card"></div>
+
+  <div class="foot">
+    <div class="fn">Soft Skill Zone Institute</div>
+    <div class="fr">📞 <a href="tel:6202856897">Call / WhatsApp: 6202856897</a> &nbsp;•&nbsp; 📍 Near Gym Town, Pakri, Ara</div>
+    <a class="wa" href="https://wa.me/916202856897?text=Hi%2C%20GST%20%2B%20Tally%20course%20join%20karna%20hai" target="_blank" rel="noopener">💬 Course Join karein</a>
+  </div>
+  <div class="credit">Made by Soft Skill Zone Institute • Author: Pankaj Pandey</div>
+</div>
+
+<script>
+// Question pool — a[0] is always the correct answer
+var POOL=[
+ ["GST poore desh mein kab lagu hua?",["1 July 2017","1 April 2017","15 August 2016","26 January 2018"],"GST 1 July 2017 se poore India mein lagu hua."],
+ ["Same state (intra-state) sale par kaun sa GST lagta hai?",["CGST + SGST","IGST","Sirf CGST","Sirf SGST"],"Same state = CGST + SGST (aadha-aadha)."],
+ ["Alag state (inter-state) sale par kaun sa GST?",["IGST","CGST + SGST","UTGST","No GST"],"Inter-state supply par IGST lagta hai."],
+ ["GST 2.0 (2025) ke main slabs kaun se hain?",["0%, 5%, 18%, 40%","5%, 12%, 18%, 28%","0%, 10%, 20%, 30%","5%, 18%, 28%"],"GST 2.0 mein 4 slab: 0%, 5%, 18%, 40%."],
+ ["GST 2.0 mein kaun se do slab hata diye gaye?",["12% aur 28%","5% aur 18%","0% aur 40%","18% aur 28%"],"12% aur 28% hata kar items 18% aur 40% mein shift kiye."],
+ ["TV, fridge aur AC par ab (GST 2.0) kitna GST hai?",["18%","28%","12%","40%"],"Appliances 28% se 18% par aa gaye."],
+ ["Pan masala aur tobacco par GST rate?",["40%","28%","18%","5%"],"Sin/luxury goods par 40% lagta hai."],
+ ["Goods ke liye GST registration ki turnover limit (normal state)?",["Rs. 40 lakh","Rs. 20 lakh","Rs. 10 lakh","Rs. 1 crore"],"Goods ke liye 40 lakh, services ke liye 20 lakh."],
+ ["Services ke liye registration threshold?",["Rs. 20 lakh","Rs. 40 lakh","Rs. 50 lakh","Rs. 10 lakh"],"Services ke liye 20 lakh turnover."],
+ ["GSTIN mein kitne characters hote hain?",["15","10","12","16"],"GSTIN 15-digit hota hai."],
+ ["GSTIN ke pehle 2 digit kya batate hain?",["State code","PAN","Entity number","Check digit"],"Pehle 2 digit = state code."],
+ ["Bihar ka GST state code kya hai?",["10","09","07","19"],"Bihar ka state code 10 hai."],
+ ["ITC ka full form kya hai?",["Input Tax Credit","Indian Tax Code","Inter Tax Charge","Input Total Cost"],"ITC = Input Tax Credit."],
+ ["Net GST payable kaise nikalte hain?",["Output Tax − Input Tax Credit","Output + Input","Sirf Output Tax","Sales × 18%"],"Output tax mein se ITC ghata do."],
+ ["Composition dealer kaun sa document issue karta hai?",["Bill of Supply","Tax Invoice","Credit Note","E-invoice"],"Composition dealer Bill of Supply deta hai, Tax Invoice nahi."],
+ ["Composition scheme mein trader ka tax rate?",["1%","5%","6%","18%"],"Trader/manufacturer 1%, restaurant 5%, services 6%."],
+ ["RCM (Reverse Charge) mein GST kaun bharta hai?",["Khareedar (receiver)","Supplier","Government","Transporter"],"RCM mein receiver (khareedar) GST bharta hai."],
+ ["HSN code kis ke liye use hota hai?",["Goods (maal)","Services","Sirf export","Sirf import"],"HSN = goods ke liye, SAC = services ke liye."],
+ ["Services ke liye kaun sa code use hota hai?",["SAC","HSN","GSTIN","PAN"],"Services ke liye SAC (Services Accounting Code)."],
+ ["Export ka GST treatment kya hai?",["Zero-rated","Exempt","18%","40%"],"Export zero-rated hai — ITC/refund milta hai."],
+ ["TallyPrime mein Sales voucher ka shortcut?",["F8","F9","F5","F7"],"F8 = Sales, F9 = Purchase."],
+ ["TallyPrime mein Purchase voucher ka shortcut?",["F9","F8","F6","F4"],"F9 = Purchase voucher."],
+ ["Payment voucher ka shortcut kya hai?",["F5","F6","F4","F7"],"F5 = Payment, F6 = Receipt."],
+ ["Contra voucher (cash-bank transfer) ka shortcut?",["F4","F5","F7","F8"],"F4 = Contra."],
+ ["TallyPrime mein Company Features kholne ke liye?",["F11","F12","F9","Alt+F1"],"F11 = Features."],
+ ["TallyPrime mein 'Go To' (search) shortcut?",["Alt+G","Ctrl+G","Alt+F1","Ctrl+F"],"Alt+G = Go To (kisi bhi report par seedha jao)."],
+ ["Credit Note (sales return) ka TallyPrime shortcut?",["Ctrl+F8","Ctrl+F9","F8","Alt+F8"],"Ctrl+F8 = Credit Note, Ctrl+F9 = Debit Note."],
+ ["Outward sales ki details wali return kaun si hai?",["GSTR-1","GSTR-3B","GSTR-9","GSTR-2B"],"GSTR-1 = outward sales ki detail."],
+ ["Summary return jisme tax payment hota hai?",["GSTR-3B","GSTR-1","GSTR-9","CMP-08"],"GSTR-3B = summary return + tax payment."],
+ ["Annual return kaun si hai?",["GSTR-9","GSTR-3B","GSTR-1","GSTR-8"],"GSTR-9 = annual return."],
+ ["Balance Sheet ka golden rule kya hai?",["Assets = Liabilities + Capital","Sales = Purchase","Debit = Credit only","Profit = Loss"],"Assets = Liabilities + Capital."],
+ ["Gross Profit kis account se nikalta hai?",["Trading Account","Profit & Loss Account","Balance Sheet","Cash Book"],"GP Trading A/c se, Net Profit P&L se."]
+];
+var N=12; // questions per attempt
+var K=['A','B','C','D'];
+var order,cur,score,answered,seconds,timer,quiz;
+var card=document.getElementById('card');
+
+function shuffle(a){for(var i=a.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1));var t=a[i];a[i]=a[j];a[j]=t;}return a;}
+
+function showStart(){
+  clearInterval(timer);
+  card.innerHTML='<div class="start">'+
+    '<div class="big">📝</div>'+
+    '<h2>Apna GST + Tally knowledge test karo!</h2>'+
+    '<p>'+N+' questions · har question ke baad turant sahi/galat pata chalega.</p>'+
+    '<ul><li>Multiple choice — ek sahi answer chuno</li>'+
+    '<li>Har baar naye random questions</li>'+
+    '<li>End mein score, percentage aur grade</li>'+
+    '<li>GST 2.0 (2026) + TallyPrime 7.0 based</li></ul>'+
+    '<button class="btn" onclick="startQuiz()">▶ Start Quiz</button>'+
+    '</div>';
+}
+function startQuiz(){
+  var idx=shuffle(POOL.map(function(_,i){return i;})).slice(0,N);
+  quiz=idx.map(function(i){
+    var opts=POOL[i][1].map(function(t,oi){return {t:t,correct:oi===0};});
+    shuffle(opts);
+    return {q:POOL[i][0],opts:opts,e:POOL[i][2]};
+  });
+  cur=0;score=0;seconds=0;
+  clearInterval(timer);
+  timer=setInterval(function(){seconds++;var el=document.getElementById('tm');if(el)el.textContent=fmtT(seconds);},1000);
+  renderQ();
+}
+function fmtT(s){var m=Math.floor(s/60),x=s%60;return (m<10?'0':'')+m+':'+(x<10?'0':'')+x;}
+function renderQ(){
+  var Q=quiz[cur];
+  var pct=Math.round((cur)/N*100);
+  var h='<div class="qtop"><span>Question '+(cur+1)+' / '+N+'</span><span>⏱ <b id="tm">'+fmtT(seconds)+'</b></span><span class="sc">Score: '+score+'</span></div>'+
+    '<div class="bar"><span style="width:'+pct+'%"></span></div>'+
+    '<div class="qtext">'+Q.q+'</div><div class="opts">';
+  Q.opts.forEach(function(o,i){
+    h+='<button class="opt" onclick="answer('+i+')"><span class="k">'+K[i]+'</span>'+o.t+'</button>';
+  });
+  h+='</div><div class="expl" id="expl"></div><button class="btn nav" id="nextBtn" style="display:none" onclick="next()">'+(cur+1<N?'Next Question →':'See Result →')+'</button>';
+  card.innerHTML=h;
+}
+function answer(i){
+  var Q=quiz[cur];
+  var btns=card.querySelectorAll('.opt');
+  btns.forEach(function(b,bi){
+    b.disabled=true;
+    if(Q.opts[bi].correct) b.classList.add('correct');
+    else if(bi===i) b.classList.add('wrong');
+    else b.classList.add('dim');
+  });
+  if(Q.opts[i].correct) score++;
+  var ex=document.getElementById('expl');
+  ex.innerHTML='<b>'+(Q.opts[i].correct?'✅ Sahi!':'❌ Galat.')+'</b> '+Q.e;
+  ex.classList.add('show');
+  document.getElementById('nextBtn').style.display='block';
+  document.querySelector('.qtop .sc').textContent='Score: '+score;
+}
+function next(){ if(cur+1<N){cur++;renderQ();} else {showResult();} }
+function showResult(){
+  clearInterval(timer);
+  var pct=Math.round(score/N*100);
+  var col,msg,emoji;
+  if(pct>=80){col='#2e7d32';emoji='🏆';msg='Zabardast! Aap GST + Tally mein strong ho.';}
+  else if(pct>=50){col='#C55A11';emoji='👍';msg='Achha! Thodi aur practice se expert ban jaoge.';}
+  else {col='#c0202a';emoji='📚';msg='Koi baat nahi — revise karo aur dobara try karo!';}
+  card.innerHTML='<div class="res">'+
+    '<div class="ring" style="background:linear-gradient(135deg,'+col+',#00000022)"><div class="p">'+pct+'%</div><div class="s">'+score+' / '+N+' sahi</div></div>'+
+    '<div style="font-size:34px;margin-bottom:4px">'+emoji+'</div>'+
+    '<h2>Quiz Complete!</h2>'+
+    '<p class="msg">'+msg+'</p>'+
+    '<div class="stat"><div><b>'+score+'</b>Sahi</div><div><b>'+(N-score)+'</b>Galat</div><div><b>'+fmtT(seconds)+'</b>Time</div></div>'+
+    '<button class="btn" onclick="startQuiz()">↻ Try Again</button>'+
+    '<button class="btn nav" onclick="showStart()">Home</button>'+
+    '</div>';
+}
+showStart();
+</script>
+</body>
+</html>

@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GST Calculator — Soft Skill Zone Institute</title>
+<style>
+  :root{
+    --navy:#1F3864; --navy2:#2b4a7e; --orange:#C55A11; --orange2:#e06f1f;
+    --grey:#5b6472; --light:#f2f6fc; --line:#e2e8f4; --green:#2e7d32; --greenbg:#eaf5ec;
+    --card:#ffffff; --bg:#eef2f9;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:'Segoe UI',system-ui,-apple-system,Roboto,Arial,sans-serif;background:linear-gradient(160deg,#eef2f9,#e2e9f5);color:#1c2430;min-height:100vh;padding:16px;display:flex;justify-content:center}
+  .wrap{width:100%;max-width:480px}
+  /* Header */
+  .head{background:linear-gradient(135deg,var(--navy),var(--navy2));border-radius:20px 20px 0 0;padding:22px 22px 26px;color:#fff;text-align:center;position:relative;overflow:hidden}
+  .head::after{content:"";position:absolute;right:-40px;top:-40px;width:130px;height:130px;background:rgba(255,255,255,.06);border-radius:50%}
+  .head h1{font-size:22px;letter-spacing:.3px}
+  .head .tag{font-size:12.5px;opacity:.85;margin-top:4px;letter-spacing:.5px}
+  .head .pill{display:inline-block;margin-top:12px;background:var(--orange);color:#fff;font-weight:700;font-size:13px;padding:6px 16px;border-radius:30px;box-shadow:0 4px 12px rgba(197,90,17,.35)}
+  /* Card */
+  .card{background:var(--card);border-radius:0 0 20px 20px;padding:20px 18px 22px;box-shadow:0 18px 45px rgba(31,56,100,.18)}
+  .modes{display:flex;background:var(--light);border-radius:14px;padding:5px;margin-bottom:18px}
+  .modes button{flex:1;border:0;background:transparent;padding:11px 8px;border-radius:10px;font-size:13.5px;font-weight:700;color:var(--grey);cursor:pointer;transition:.2s}
+  .modes button.on{background:var(--navy);color:#fff;box-shadow:0 4px 12px rgba(31,56,100,.25)}
+  label.lbl{display:block;font-size:12.5px;font-weight:700;color:var(--navy);margin:2px 0 7px;letter-spacing:.3px}
+  .amt{position:relative;margin-bottom:18px}
+  .amt .rs{position:absolute;left:14px;top:50%;transform:translateY(-50%);font-size:20px;font-weight:700;color:var(--grey)}
+  .amt input{width:100%;padding:14px 14px 14px 38px;font-size:22px;font-weight:700;color:var(--navy);border:2px solid var(--line);border-radius:12px;outline:none;transition:.2s}
+  .amt input:focus{border-color:var(--orange)}
+  .chips{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:8px}
+  .chips .chip{flex:1;min-width:56px;border:2px solid var(--line);background:#fff;padding:10px 4px;border-radius:11px;font-weight:800;font-size:15px;color:var(--navy);cursor:pointer;transition:.15s;text-align:center}
+  .chips .chip.on{background:var(--orange);border-color:var(--orange);color:#fff;box-shadow:0 4px 10px rgba(197,90,17,.3)}
+  .custom{display:flex;align-items:center;gap:8px;margin:10px 0 18px}
+  .custom input{width:90px;padding:9px 10px;border:2px solid var(--line);border-radius:10px;font-weight:700;color:var(--navy);outline:none;font-size:14px}
+  .custom input:focus{border-color:var(--orange)}
+  .custom span{font-size:12.5px;color:var(--grey)}
+  .supply{display:flex;gap:8px;margin-bottom:6px}
+  .supply button{flex:1;border:2px solid var(--line);background:#fff;padding:12px 6px;border-radius:12px;font-weight:700;font-size:13px;color:var(--navy);cursor:pointer;transition:.15s;line-height:1.3}
+  .supply button small{display:block;font-weight:600;font-size:11px;color:var(--grey);margin-top:2px}
+  .supply button.on{background:var(--navy);border-color:var(--navy);color:#fff}
+  .supply button.on small{color:#cdd8ee}
+  /* Result */
+  .result{margin-top:20px;border:1.5px dashed #cbd6ea;border-radius:16px;overflow:hidden}
+  .row{display:flex;justify-content:space-between;align-items:center;padding:12px 16px;font-size:14px;border-bottom:1px solid var(--line)}
+  .row span:first-child{color:var(--grey);font-weight:600}
+  .row span:last-child{font-weight:800;color:#1c2430;font-variant-numeric:tabular-nums}
+  .row.tax span:last-child{color:var(--orange)}
+  .row.hide{display:none}
+  .total{background:var(--navy);color:#fff;padding:16px;display:flex;justify-content:space-between;align-items:center}
+  .total .t1{font-size:14px;opacity:.9;font-weight:600}
+  .total .t2{font-size:24px;font-weight:800;font-variant-numeric:tabular-nums}
+  .note{font-size:11.5px;color:var(--grey);text-align:center;margin-top:12px;line-height:1.5}
+  .slab{background:var(--greenbg);color:var(--green);border-radius:10px;padding:8px 12px;font-size:12px;font-weight:600;text-align:center;margin-top:14px}
+  /* Footer */
+  .foot{margin-top:16px;background:var(--navy);border-radius:16px;padding:16px 18px;color:#fff;display:flex;flex-direction:column;gap:10px}
+  .foot .fname{font-weight:800;font-size:15px;letter-spacing:.3px}
+  .foot .frow{display:flex;align-items:center;gap:10px;font-size:13px;opacity:.92}
+  .foot a{color:#fff;text-decoration:none}
+  .wa{display:flex;align-items:center;justify-content:center;gap:8px;background:#25D366;color:#fff !important;font-weight:800;padding:12px;border-radius:12px;font-size:14px;margin-top:2px;box-shadow:0 6px 16px rgba(37,211,102,.3)}
+  .ic{width:18px;height:18px;flex:none}
+  .credit{text-align:center;font-size:11px;color:var(--grey);margin-top:14px}
+  @media(max-width:380px){.chips .chip{min-width:48px;font-size:14px}.head h1{font-size:19px}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="head">
+    <h1>Soft Skill Zone Institute</h1>
+    <div class="tag">GST CALCULATOR &nbsp;•&nbsp; 2026 (GST 2.0)</div>
+    <div class="pill">Instant CGST / SGST / IGST</div>
+  </div>
+
+  <div class="card">
+    <!-- Mode -->
+    <div class="modes">
+      <button id="mAdd" class="on" onclick="setMode('add')">GST Add karo <br><small style="font-weight:600;font-size:10.5px">(amount + GST)</small></button>
+      <button id="mRem" onclick="setMode('remove')">GST Nikaalo <br><small style="font-weight:600;font-size:10.5px">(total mein se)</small></button>
+    </div>
+
+    <!-- Amount -->
+    <label class="lbl" id="amtLbl">TAXABLE AMOUNT (bina GST)</label>
+    <div class="amt">
+      <span class="rs">₹</span>
+      <input id="amount" type="number" inputmode="decimal" placeholder="0" oninput="calc()" min="0">
+    </div>
+
+    <!-- Rate -->
+    <label class="lbl">GST RATE</label>
+    <div class="chips" id="chips">
+      <div class="chip" data-r="0" onclick="setRate(0,this)">0%</div>
+      <div class="chip" data-r="5" onclick="setRate(5,this)">5%</div>
+      <div class="chip on" data-r="18" onclick="setRate(18,this)">18%</div>
+      <div class="chip" data-r="40" onclick="setRate(40,this)">40%</div>
+    </div>
+    <div class="custom">
+      <input id="customRate" type="number" placeholder="Other" inputmode="decimal" oninput="setCustom(this.value)">
+      <span>% &nbsp;— koi aur rate (jaise 3%, 12%)</span>
+    </div>
+
+    <!-- Supply type -->
+    <label class="lbl">SUPPLY TYPE</label>
+    <div class="supply">
+      <button id="sIntra" class="on" onclick="setSupply('intra')">Intra-State<small>Same state — CGST + SGST</small></button>
+      <button id="sInter" onclick="setSupply('inter')">Inter-State<small>Alag state — IGST</small></button>
+    </div>
+
+    <!-- Result -->
+    <div class="result">
+      <div class="row"><span>Taxable Value</span><span id="rTaxable">₹ 0</span></div>
+      <div class="row tax" id="rowCgst"><span>CGST <b id="cgstP">(9%)</b></span><span id="rCgst">₹ 0</span></div>
+      <div class="row tax" id="rowSgst"><span>SGST <b id="sgstP">(9%)</b></span><span id="rSgst">₹ 0</span></div>
+      <div class="row tax hide" id="rowIgst"><span>IGST <b id="igstP">(18%)</b></span><span id="rIgst">₹ 0</span></div>
+      <div class="row"><span>Total GST</span><span id="rGst">₹ 0</span></div>
+      <div class="total"><span class="t1" id="totLbl">Total Amount (with GST)</span><span class="t2" id="rTotal">₹ 0</span></div>
+    </div>
+
+    <div class="slab" id="slabNote">💡 GST 2.0 slabs: 0% • 5% • 18% • 40% &nbsp;(12% aur 28% hata diye gaye)</div>
+    <div class="note">Sirf calculation ke liye — GST 2.0 (effective 22-Sept-2025). Rate apne item ke hisaab se chuno.</div>
+  </div>
+
+  <!-- Footer -->
+  <div class="foot">
+    <div class="fname">Soft Skill Zone Institute</div>
+    <div class="frow">📞 <a href="tel:6202856897">Call / WhatsApp: 6202856897</a></div>
+    <div class="frow">📍 Near Gym Town, Pakri, Ara</div>
+    <div class="frow">🎓 GST + TallyPrime Master Course — Job-Oriented Training</div>
+    <a class="wa" href="https://wa.me/916202856897?text=Hi%2C%20GST%20%2B%20Tally%20course%20ke%20baare%20mein%20jaankari%20chahiye" target="_blank" rel="noopener">
+      <svg class="ic" viewBox="0 0 24 24" fill="#fff"><path d="M17.5 14.4c-.3-.15-1.7-.85-2-.95-.26-.1-.45-.15-.64.15-.19.28-.73.94-.9 1.13-.16.19-.33.21-.61.07-.3-.15-1.24-.46-2.36-1.46-.87-.78-1.46-1.73-1.63-2.02-.17-.29-.02-.44.13-.59.13-.13.29-.34.44-.51.14-.17.19-.29.29-.48.1-.19.05-.36-.02-.51-.08-.15-.64-1.55-.88-2.12-.23-.55-.47-.48-.64-.48h-.55c-.19 0-.5.07-.76.36-.26.29-1 .98-1 2.38s1.02 2.76 1.17 2.95c.14.19 2.01 3.08 4.88 4.32.68.29 1.21.47 1.63.6.68.22 1.31.19 1.8.11.55-.08 1.7-.69 1.94-1.36.24-.67.24-1.24.17-1.36-.07-.12-.26-.19-.55-.34zM12 2C6.48 2 2 6.48 2 12c0 1.85.5 3.58 1.38 5.07L2 22l5.05-1.33C8.5 21.5 10.2 22 12 22c5.52 0 10-4.48 10-10S17.52 2 12 2z"/></svg>
+      WhatsApp par baat karein
+    </a>
+  </div>
+
+  <div class="credit">Made by Soft Skill Zone Institute • Author: Pankaj Pandey</div>
+</div>
+
+<script>
+  var mode='add', rate=18, supply='intra';
+  var fmt = new Intl.NumberFormat('en-IN',{maximumFractionDigits:2});
+  function money(n){ if(!isFinite(n)) n=0; return '₹ '+fmt.format(Math.round((n+Number.EPSILON)*100)/100); }
+
+  function setMode(m){
+    mode=m;
+    document.getElementById('mAdd').classList.toggle('on',m==='add');
+    document.getElementById('mRem').classList.toggle('on',m==='remove');
+    document.getElementById('amtLbl').textContent = m==='add' ? 'TAXABLE AMOUNT (bina GST)' : 'TOTAL AMOUNT (GST included)';
+    document.getElementById('totLbl').textContent = m==='add' ? 'Total Amount (with GST)' : 'Taxable Value (bina GST)';
+    calc();
+  }
+  function setRate(r,el){
+    rate=r;
+    document.querySelectorAll('#chips .chip').forEach(c=>c.classList.remove('on'));
+    if(el) el.classList.add('on');
+    document.getElementById('customRate').value='';
+    calc();
+  }
+  function setCustom(v){
+    if(v===''){ return; }
+    rate=parseFloat(v)||0;
+    document.querySelectorAll('#chips .chip').forEach(c=>c.classList.remove('on'));
+    calc();
+  }
+  function setSupply(s){
+    supply=s;
+    document.getElementById('sIntra').classList.toggle('on',s==='intra');
+    document.getElementById('sInter').classList.toggle('on',s==='inter');
+    document.getElementById('rowCgst').classList.toggle('hide',s!=='intra');
+    document.getElementById('rowSgst').classList.toggle('hide',s!=='intra');
+    document.getElementById('rowIgst').classList.toggle('hide',s!=='inter');
+    calc();
+  }
+  function calc(){
+    var amt=parseFloat(document.getElementById('amount').value)||0;
+    var taxable, tax, total;
+    if(mode==='add'){ taxable=amt; tax=amt*rate/100; total=amt+tax; }
+    else { total=amt; taxable=amt/(1+rate/100); tax=amt-taxable; }
+    var half=rate/2;
+    document.getElementById('cgstP').textContent='('+half+'%)';
+    document.getElementById('sgstP').textContent='('+half+'%)';
+    document.getElementById('igstP').textContent='('+rate+'%)';
+    document.getElementById('rTaxable').textContent=money(taxable);
+    document.getElementById('rGst').textContent=money(tax);
+    if(supply==='intra'){
+      document.getElementById('rCgst').textContent=money(tax/2);
+      document.getElementById('rSgst').textContent=money(tax/2);
+    } else {
+      document.getElementById('rIgst').textContent=money(tax);
+    }
+    document.getElementById('rTotal').textContent = mode==='add' ? money(total) : money(taxable);
+  }
+  calc();
+</script>
+</body>
+</html>

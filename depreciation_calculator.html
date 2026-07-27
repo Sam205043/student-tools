@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Depreciation Calculator — Soft Skill Zone Institute</title>
+<style>
+  :root{--navy:#1F3864;--navy2:#2b4a7e;--orange:#C55A11;--grey:#5b6472;--light:#f2f6fc;--line:#e6ecf6;--green:#2e7d32;}
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:'Segoe UI',system-ui,-apple-system,Roboto,Arial,sans-serif;background:linear-gradient(160deg,#eef2f9,#e2e9f5);color:#1c2430;min-height:100vh;padding:16px;display:flex;justify-content:center}
+  .wrap{width:100%;max-width:500px}
+  .head{background:linear-gradient(135deg,var(--navy),var(--navy2));border-radius:20px 20px 0 0;padding:22px;color:#fff;text-align:center;position:relative;overflow:hidden}
+  .head::after{content:"";position:absolute;right:-40px;top:-40px;width:130px;height:130px;background:rgba(255,255,255,.06);border-radius:50%}
+  .head h1{font-size:21px}.head .tag{font-size:12.5px;opacity:.85;margin-top:4px}
+  .head .pill{display:inline-block;margin-top:12px;background:var(--orange);color:#fff;font-weight:700;font-size:13px;padding:6px 16px;border-radius:30px}
+  .card{background:#fff;border-radius:0 0 20px 20px;padding:20px 18px 22px;box-shadow:0 18px 45px rgba(31,56,100,.18)}
+  .modes{display:flex;background:var(--light);border-radius:14px;padding:5px;margin-bottom:16px}
+  .modes button{flex:1;border:0;background:transparent;padding:11px 8px;border-radius:10px;font-size:13px;font-weight:700;color:var(--grey);cursor:pointer}
+  .modes button.on{background:var(--navy);color:#fff}
+  label.lbl{display:block;font-size:12px;font-weight:700;color:var(--navy);margin:0 0 6px}
+  .row2{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:14px}
+  .fld input{width:100%;padding:12px;font-size:16px;font-weight:700;color:var(--navy);border:2px solid var(--line);border-radius:11px;outline:none}
+  .fld input:focus{border-color:var(--orange)}
+  .res{margin-top:6px;border:1px solid var(--line);border-radius:14px;overflow:hidden}
+  .res table{width:100%;border-collapse:collapse;font-size:13px}
+  .res th{background:var(--navy);color:#fff;padding:9px 6px;font-size:11.5px;text-align:right}
+  .res th:first-child{text-align:center}
+  .res td{padding:8px 6px;text-align:right;border-bottom:1px solid var(--line);font-variant-numeric:tabular-nums}
+  .res td:first-child{text-align:center;font-weight:800;color:var(--navy)}
+  .res tr:nth-child(even) td{background:var(--light)}
+  .res td.dep{color:var(--orange);font-weight:700}
+  .note{font-size:11.5px;color:var(--grey);text-align:center;margin-top:12px;line-height:1.5}
+  .foot{margin-top:16px;background:var(--navy);border-radius:16px;padding:15px 18px;color:#fff;text-align:center}
+  .foot .fn{font-weight:800;font-size:15px}.foot .fr{font-size:12.5px;opacity:.92;margin-top:5px}
+  .foot a{color:#fff;text-decoration:none}
+  .wa{display:inline-flex;align-items:center;gap:8px;background:#25D366;color:#fff !important;font-weight:800;padding:10px 18px;border-radius:11px;font-size:13.5px;margin-top:11px}
+  .credit{text-align:center;font-size:11px;color:var(--grey);margin-top:12px}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="head">
+    <h1>Depreciation Calculator</h1>
+    <div class="tag">Soft Skill Zone Institute • Accounting Tool</div>
+    <div class="pill">SLM & WDV — year-wise</div>
+  </div>
+  <div class="card">
+    <div class="modes">
+      <button id="mSlm" class="on" onclick="setM('slm')">SLM<br><small style="font-weight:600;font-size:10px">Straight Line</small></button>
+      <button id="mWdv" onclick="setM('wdv')">WDV<br><small style="font-weight:600;font-size:10px">Reducing Balance</small></button>
+    </div>
+    <div class="row2">
+      <div class="fld"><label class="lbl">Asset Cost (₹)</label><input id="cost" type="number" inputmode="decimal" value="100000" oninput="calc()"></div>
+      <div class="fld"><label class="lbl">Rate (% per year)</label><input id="rate" type="number" inputmode="decimal" value="15" oninput="calc()"></div>
+    </div>
+    <div class="row2">
+      <div class="fld"><label class="lbl">Years</label><input id="years" type="number" inputmode="numeric" value="5" oninput="calc()"></div>
+      <div class="fld"><label class="lbl">Salvage Value (₹) <span style="font-weight:500;color:var(--grey)">optional</span></label><input id="salvage" type="number" inputmode="decimal" value="0" oninput="calc()"></div>
+    </div>
+    <div class="res"><table><thead><tr><th>Year</th><th>Opening</th><th>Depreciation</th><th>Closing</th></tr></thead><tbody id="rows"></tbody></table></div>
+    <div class="note" id="note"></div>
+  </div>
+  <div class="foot">
+    <div class="fn">Soft Skill Zone Institute</div>
+    <div class="fr">📞 <a href="tel:6202856897">Call / WhatsApp: 6202856897</a> • 📍 Near Gym Town, Pakri, Ara</div>
+    <a class="wa" href="https://wa.me/916202856897?text=Hi%2C%20GST%20%2B%20Tally%20course%20ki%20jaankari%20chahiye" target="_blank" rel="noopener">💬 Course Join karein</a>
+  </div>
+  <div class="credit">Made by Soft Skill Zone Institute • Author: Pankaj Pandey</div>
+</div>
+<script>
+var mode='slm';
+var fmt=new Intl.NumberFormat('en-IN',{maximumFractionDigits:0});
+function money(n){if(!isFinite(n))n=0;return '₹'+fmt.format(Math.round(n));}
+function setM(m){mode=m;document.getElementById('mSlm').classList.toggle('on',m==='slm');document.getElementById('mWdv').classList.toggle('on',m==='wdv');calc();}
+function calc(){
+  var cost=parseFloat(document.getElementById('cost').value)||0;
+  var rate=parseFloat(document.getElementById('rate').value)||0;
+  var yrs=parseInt(document.getElementById('years').value)||0;
+  var sal=parseFloat(document.getElementById('salvage').value)||0;
+  if(yrs>30)yrs=30;
+  var html='',bv=cost,totalDep=0;
+  var slmDep=(cost-sal)*rate/100; // flat each year on (cost - salvage)
+  for(var y=1;y<=yrs;y++){
+    var op=bv, dep;
+    if(mode==='slm'){ dep=slmDep; if(op-dep<sal)dep=Math.max(0,op-sal); }
+    else { dep=op*rate/100; if(op-dep<sal)dep=Math.max(0,op-sal); }
+    var cl=op-dep; bv=cl; totalDep+=dep;
+    html+='<tr><td>'+y+'</td><td>'+money(op)+'</td><td class="dep">'+money(dep)+'</td><td>'+money(cl)+'</td></tr>';
+  }
+  if(!yrs)html='<tr><td colspan="4" style="text-align:center;color:#9aa4b4;padding:14px">Years daalo...</td></tr>';
+  document.getElementById('rows').innerHTML=html;
+  document.getElementById('note').innerHTML= mode==='slm'
+    ? '<b>SLM:</b> har saal barabar depreciation = (Cost − Salvage) × Rate%. Total depreciation: <b>'+money(totalDep)+'</b>'
+    : '<b>WDV:</b> har saal book value par Rate% — depreciation kam hoti jaati hai. Total: <b>'+money(totalDep)+'</b>';
+}
+calc();
+</script>
+</body>
+</html>

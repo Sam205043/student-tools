@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GST Invoice Generator — Soft Skill Zone Institute</title>
+<style>
+  :root{--navy:#1F3864;--navy2:#2b4a7e;--orange:#C55A11;--grey:#5b6472;--light:#f2f6fc;--line:#e6ecf6;}
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:'Segoe UI',system-ui,-apple-system,Roboto,Arial,sans-serif;background:linear-gradient(160deg,#eef2f9,#dfe7f4);color:#1c2430;padding:16px}
+  .wrap{max-width:820px;margin:0 auto}
+  .controls{background:#fff;border-radius:18px;padding:18px;box-shadow:0 12px 32px rgba(31,56,100,.12);margin-bottom:18px}
+  .controls h2{color:var(--navy);font-size:18px}.controls .sub{color:var(--grey);font-size:13px;margin:3px 0 14px}
+  .grp{border:1px solid var(--line);border-radius:12px;padding:12px;margin-bottom:12px}
+  .grp h3{font-size:12px;font-weight:800;color:var(--orange);letter-spacing:.5px;margin-bottom:8px;text-transform:uppercase}
+  .frm{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px}
+  .fld label{display:block;font-size:11px;font-weight:700;color:var(--navy);margin-bottom:4px}
+  .fld input,.fld select{width:100%;padding:9px 10px;border:2px solid var(--line);border-radius:9px;font-size:13.5px;font-weight:600;color:#2a3444;outline:none}
+  .fld input:focus,.fld select:focus{border-color:var(--orange)}
+  table.items{width:100%;border-collapse:collapse;margin-top:4px}
+  table.items th{background:var(--light);font-size:11px;color:var(--navy);padding:6px 4px;text-align:left}
+  table.items td{padding:3px}
+  table.items input,table.items select{width:100%;padding:7px 6px;border:1.5px solid var(--line);border-radius:7px;font-size:12.5px;outline:none}
+  table.items input:focus{border-color:var(--orange)}
+  .supply{display:flex;gap:8px;margin-top:6px}
+  .supply button{flex:1;border:2px solid var(--line);background:#fff;padding:9px;border-radius:10px;font-weight:700;font-size:12.5px;color:var(--navy);cursor:pointer}
+  .supply button.on{background:var(--navy);border-color:var(--navy);color:#fff}
+  .actions{display:flex;gap:10px;margin-top:14px}
+  .btn{border:0;font-weight:800;font-size:14px;padding:12px 22px;border-radius:11px;cursor:pointer}
+  .btn.p{background:var(--navy);color:#fff}.btn.o{background:var(--orange);color:#fff}
+  /* Invoice */
+  .stage{display:flex;justify-content:center}
+  .inv{width:100%;max-width:780px;background:#fff;box-shadow:0 16px 45px rgba(31,56,100,.2);padding:26px}
+  .inv .top{display:flex;justify-content:space-between;border-bottom:3px solid var(--navy);padding-bottom:12px;flex-wrap:wrap;gap:8px}
+  .inv .seller .nm{font-size:20px;font-weight:800;color:var(--navy)}
+  .inv .seller .d{font-size:12px;color:var(--grey);line-height:1.5;margin-top:3px}
+  .inv .tt{text-align:right}.inv .tt .lbl{font-size:22px;font-weight:800;color:var(--orange);letter-spacing:1px}
+  .inv .tt .m{font-size:12px;color:#2a3444;margin-top:4px;line-height:1.6}
+  .inv .tt .m b{color:var(--navy)}
+  .inv .billto{margin:14px 0 10px;font-size:12.5px}
+  .inv .billto .h{font-size:11px;font-weight:800;color:var(--orange);text-transform:uppercase;margin-bottom:3px}
+  .inv .billto b{color:var(--navy)}
+  table.pv{width:100%;border-collapse:collapse;margin-top:6px;font-size:12px}
+  table.pv th{background:var(--navy);color:#fff;padding:8px 6px;text-align:left;font-size:11px}
+  table.pv td{padding:7px 6px;border-bottom:1px solid var(--line)}
+  table.pv td.r,table.pv th.r{text-align:right}
+  .sumwrap{display:flex;justify-content:flex-end;margin-top:10px}
+  .sum{width:min(320px,100%);font-size:12.5px}
+  .sum .row{display:flex;justify-content:space-between;padding:5px 4px;border-bottom:1px solid var(--line)}
+  .sum .row.tot{background:var(--navy);color:#fff;font-weight:800;font-size:15px;padding:10px;border-radius:8px;margin-top:6px}
+  .words{font-size:11.5px;color:var(--grey);margin-top:10px;font-style:italic}
+  .invfoot{margin-top:16px;border-top:1px dashed var(--line);padding-top:10px;display:flex;justify-content:space-between;font-size:11px;color:var(--grey);flex-wrap:wrap;gap:8px}
+  .invfoot .sig{text-align:right}.invfoot .sig .l{margin-top:26px;border-top:1px solid var(--grey);padding-top:3px}
+  .appfoot{margin-top:18px;background:var(--navy);border-radius:16px;padding:14px;color:#fff;text-align:center;font-size:13px}
+  .appfoot a{color:#fff;text-decoration:none}.appfoot .fn{font-weight:800;font-size:15px;margin-bottom:4px}
+  .hint{font-size:12px;color:var(--grey);margin-top:8px}
+  @media print{body{background:#fff;padding:0}.controls,.appfoot,.hint{display:none!important}.wrap{max-width:none}.inv{box-shadow:none;max-width:none}@page{size:A4;margin:12mm}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="controls">
+    <h2>🧾 GST Invoice Generator</h2>
+    <div class="sub">Details bharo — invoice niche live banega. Phir Print / Save as PDF karo.</div>
+
+    <div class="grp"><h3>Seller (Aapki details)</h3><div class="frm">
+      <div class="fld"><label>Business Name</label><input id="sName" value="Shree Ganesh Electronics" oninput="calc()"></div>
+      <div class="fld"><label>GSTIN</label><input id="sGst" value="10AGHPG5544R1ZK" oninput="calc()"></div>
+      <div class="fld"><label>State</label><input id="sState" value="Bihar" oninput="calc()"></div>
+      <div class="fld"><label>Address / Mobile</label><input id="sAddr" value="Patna, Bihar · 6202856897" oninput="calc()"></div>
+    </div></div>
+
+    <div class="grp"><h3>Buyer (Customer)</h3><div class="frm">
+      <div class="fld"><label>Customer Name</label><input id="bName" value="Verma Electronics" oninput="calc()"></div>
+      <div class="fld"><label>GSTIN</label><input id="bGst" value="10AAFCV9988K1Z9" oninput="calc()"></div>
+      <div class="fld"><label>State</label><input id="bState" value="Bihar" oninput="calc()"></div>
+      <div class="fld"><label>Invoice No.</label><input id="invNo" value="INV/2026/001" oninput="calc()"></div>
+      <div class="fld"><label>Date</label><input id="invDate" type="date" oninput="calc()"></div>
+    </div></div>
+
+    <div class="grp"><h3>Supply Type</h3>
+      <div class="supply">
+        <button id="sIntra" class="on" onclick="setSup('intra')">Intra-State — CGST + SGST</button>
+        <button id="sInter" onclick="setSup('inter')">Inter-State — IGST</button>
+      </div>
+    </div>
+
+    <div class="grp"><h3>Items</h3>
+      <table class="items"><thead><tr><th style="width:34%">Description</th><th>HSN</th><th>Qty</th><th>Rate</th><th>GST%</th></tr></thead>
+      <tbody id="rows"></tbody></table>
+    </div>
+
+    <div class="actions">
+      <button class="btn p" onclick="window.print()">🖨️ Print / Save as PDF</button>
+    </div>
+    <div class="hint">Tip: khaali rows chhod sakte ho. Print par sirf invoice aayega (A4).</div>
+  </div>
+
+  <div class="stage">
+    <div class="inv" id="inv">
+      <div class="top">
+        <div class="seller"><div class="nm" id="pSname">—</div><div class="d" id="pSd">—</div></div>
+        <div class="tt"><div class="lbl">TAX INVOICE</div><div class="m" id="pMeta">—</div></div>
+      </div>
+      <div class="billto"><div class="h">Bill To</div><div id="pBill">—</div></div>
+      <table class="pv"><thead><tr><th>#</th><th>Description</th><th>HSN</th><th class="r">Qty</th><th class="r">Rate</th><th class="r">Amount</th></tr></thead>
+      <tbody id="pRows"></tbody></table>
+      <div class="sumwrap"><div class="sum" id="pSum"></div></div>
+      <div class="words" id="pWords"></div>
+      <div class="invfoot">
+        <div>Terms: Goods once sold will not be taken back.<br>Subject to jurisdiction.</div>
+        <div class="sig">For <b id="pSname2">—</b><div class="l">Authorised Signatory</div></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="appfoot"><div class="fn">Soft Skill Zone Institute</div>
+    📞 <a href="tel:6202856897">Call / WhatsApp: 6202856897</a> · 📍 Near Gym Town, Pakri, Ara<br>
+    <span style="opacity:.85">GST + TallyPrime Master Course — Job-Oriented Training</span></div>
+</div>
+<script>
+var sup='intra';
+var fmt=new Intl.NumberFormat('en-IN',{minimumFractionDigits:2,maximumFractionDigits:2});
+function money(n){if(!isFinite(n))n=0;return '₹ '+fmt.format(n);}
+var seed=[['LED TV 43 inch','8528','2','27000','18'],['Refrigerator 260L','8418','1','22500','18'],['','','','',''],['','','','',''],['','','','','']];
+function buildRows(){
+  document.getElementById('rows').innerHTML=seed.map(function(r,i){
+    return '<tr>'+
+    '<td><input data-i="'+i+'" data-k="0" value="'+r[0]+'" oninput="upd(this)"></td>'+
+    '<td><input data-i="'+i+'" data-k="1" value="'+r[1]+'" oninput="upd(this)"></td>'+
+    '<td><input data-i="'+i+'" data-k="2" value="'+r[2]+'" inputmode="decimal" oninput="upd(this)"></td>'+
+    '<td><input data-i="'+i+'" data-k="3" value="'+r[3]+'" inputmode="decimal" oninput="upd(this)"></td>'+
+    '<td><select data-i="'+i+'" data-k="4" onchange="upd(this)">'+[0,5,18,40].map(function(g){return '<option '+(String(g)===r[4]?'selected':'')+'>'+g+'</option>';}).join('')+'</select></td>'+
+    '</tr>';
+  }).join('');
+}
+function upd(el){seed[el.dataset.i][el.dataset.k]=el.value;calc();}
+function setSup(s){sup=s;document.getElementById('sIntra').classList.toggle('on',s==='intra');document.getElementById('sInter').classList.toggle('on',s==='inter');calc();}
+function fmtDate(v){if(!v)return '';var d=new Date(v+'T00:00:00');if(isNaN(d))return v;var m=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];return d.getDate()+'-'+m[d.getMonth()]+'-'+d.getFullYear();}
+function toWords(n){ // simple Indian words for whole rupees
+  n=Math.floor(n); if(n===0)return 'Zero';
+  var a=['','One','Two','Three','Four','Five','Six','Seven','Eight','Nine','Ten','Eleven','Twelve','Thirteen','Fourteen','Fifteen','Sixteen','Seventeen','Eighteen','Nineteen'];
+  var b=['','','Twenty','Thirty','Forty','Fifty','Sixty','Seventy','Eighty','Ninety'];
+  function two(x){return x<20?a[x]:b[Math.floor(x/10)]+(x%10?' '+a[x%10]:'');}
+  function three(x){return (x>99?a[Math.floor(x/100)]+' Hundred'+(x%100?' ':''):'')+(x%100?two(x%100):'');}
+  var out='',cr=Math.floor(n/10000000);n%=10000000;var la=Math.floor(n/100000);n%=100000;var th=Math.floor(n/1000);n%=1000;var hu=n;
+  if(cr)out+=three(cr)+' Crore ';if(la)out+=two(la)+' Lakh ';if(th)out+=two(th)+' Thousand ';if(hu)out+=three(hu);
+  return out.trim();
+}
+function calc(){
+  document.getElementById('pSname').textContent=g('sName');
+  document.getElementById('pSname2').textContent=g('sName');
+  document.getElementById('pSd').innerHTML=g('sAddr')+'<br>GSTIN: <b>'+g('sGst')+'</b> · State: '+g('sState');
+  document.getElementById('pMeta').innerHTML='Invoice No: <b>'+g('invNo')+'</b><br>Date: <b>'+(fmtDate(g('invDate'))||'—')+'</b>';
+  document.getElementById('pBill').innerHTML='<b>'+g('bName')+'</b><br>GSTIN: '+g('bGst')+' · State: '+g('bState');
+  var taxable=0, gstTotal=0, prows='', rate18=0, n=0;
+  var taxByRate={};
+  seed.forEach(function(r){
+    var desc=r[0].trim(); if(!desc)return;
+    var qty=parseFloat(r[2])||0, rate=parseFloat(r[3])||0, gp=parseFloat(r[4])||0;
+    var amt=qty*rate; taxable+=amt; var tx=amt*gp/100; gstTotal+=tx;
+    taxByRate[gp]=(taxByRate[gp]||0)+tx;
+    n++; prows+='<tr><td>'+n+'</td><td>'+desc+'</td><td>'+r[1]+'</td><td class="r">'+(qty||'')+'</td><td class="r">'+money(rate)+'</td><td class="r">'+money(amt)+'</td></tr>';
+  });
+  if(!n)prows='<tr><td colspan="6" style="text-align:center;color:#9aa4b4;padding:14px">Items add karo upar...</td></tr>';
+  document.getElementById('pRows').innerHTML=prows;
+  var total=taxable+gstTotal;
+  var s='<div class="row"><span>Taxable Value</span><b>'+money(taxable)+'</b></div>';
+  if(sup==='intra'){
+    s+='<div class="row"><span>CGST</span><b>'+money(gstTotal/2)+'</b></div><div class="row"><span>SGST</span><b>'+money(gstTotal/2)+'</b></div>';
+  } else {
+    s+='<div class="row"><span>IGST</span><b>'+money(gstTotal)+'</b></div>';
+  }
+  s+='<div class="row"><span>Total GST</span><b>'+money(gstTotal)+'</b></div>';
+  s+='<div class="row tot"><span>Total Amount</span><span>'+money(total)+'</span></div>';
+  document.getElementById('pSum').innerHTML=s;
+  document.getElementById('pWords').textContent='Amount in words: Rupees '+toWords(Math.round(total))+' Only';
+}
+buildRows();
+(function(){var d=new Date();document.getElementById('invDate').value=d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');calc();})();
+function g(id){return document.getElementById(id).value;}
+</script>
+</body>
+</html>
